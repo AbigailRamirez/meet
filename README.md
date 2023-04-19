@@ -1,5 +1,16 @@
 # meet
 
+## Overview
+MeetApp is a serverless, progressive web application built with React using a test-driven development technique. The application uses the Google Calendar API to fetch upcoming events.
+
+## Key Features Include:
+- Filtering events by city
+- Show/hide event details
+- Specify number of events
+- Use the app when offline
+- Add an app shortcut tot he home screen
+-  View a chart showing number of events in a specified city
+
 ## Feature 1: Filter Events by City
 ### User Story:
 As a user I should be able to "filter events by city" so that I can see a list of events that take place in a chosen city.
