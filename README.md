@@ -3,6 +3,9 @@
 ## Overview
 MeetApp is a serverless, progressive web application built with React using a test-driven development technique. The application uses the Google Calendar API to fetch upcoming events.
 
+### Use of Serverless
+The app will use an aws token for authorization, which will be generated in an aws authorization server. This server will host Lambda functions created to deliver authorization tokens to users. With this token, users will have access to event data from Google Calendar API.
+
 ## Key Features Include:
 - Filtering events by city
 - Show/hide event details
