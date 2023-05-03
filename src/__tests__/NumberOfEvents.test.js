@@ -25,7 +25,7 @@ describe("<NumberOfEvents /> component", () => {
         expect(NumberOfEventsWrapper.find('.number').prop('value')).toBe(number);
     });
 
-    // test 4: the component changes state when user inputs value (10)
+    // test 4: the component changes state when user inputs value (12)
     test('change state when user input changes', () => {
         expect(NumberOfEventsWrapper.state('number')).toBe(32);
         NumberOfEventsWrapper.find('input.number').simulate('change', {
@@ -33,17 +33,5 @@ describe("<NumberOfEvents /> component", () => {
         });
         expect(NumberOfEventsWrapper.state('number')).toBe(12);
     });
-
-    /*// test 5: the results of the user input is rendered correctly 
-    test('rendered number of events is equal to the users input', () => {
-        const RenderedNumberOfEvents = shallow(
-            <NumberOfEvents 
-                inputValue={10}
-                //number={10} 
-                updateEvents={() => { }} 
-            /> //was updateNumberOfEvents
-        );
-        expect(RenderedNumberOfEvents.state('number')).toBe(10);
-    });*/
 
 });
