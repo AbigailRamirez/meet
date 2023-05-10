@@ -62,6 +62,7 @@ const getToken = async (code) => {
   try {
       const encodeCode = encodeURIComponent(code);
 
+      // eslint-disable-next-line no-useless-concat
       const response = await fetch( "https://2urbgokkzk.execute-api.us-east-1.amazonaws.com/dev/api/token" + "/" + encodeCode);
       if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
@@ -93,6 +94,7 @@ export const getEvents = async () => {
 
   if (token) {
     removeQuery();
+    // eslint-disable-next-line no-useless-concat
     const url = 'https://2urbgokkzk.execute-api.us-east-1.amazonaws.com/dev/api/get-events' + '/' + token;
     const result = await axios.get(url);
     if (result.data) {

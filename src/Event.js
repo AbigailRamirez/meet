@@ -18,10 +18,12 @@ class Event extends Component {
         return (
         <div className='event'>
             <b className='title'>Title: {event.summary}</b>
+            <p>
+              Location: {event.location}           
+            </p>
             {this.state.hide === false && (
             <ul className='details'>
                 <li>Description: {event.description}</li>
-                <li>Location: {event.location}</li>
                 <li>Start: {new Date(event.start.dateTime).toISOString()}</li>
                 <li>End: {new Date(event.end.dateTime).toISOString()}</li>
             </ul>
