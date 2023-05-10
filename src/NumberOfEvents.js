@@ -1,42 +1,47 @@
 import React, { Component } from "react";
 
 class NumberOfEvents extends Component {
-    state = {
-    number: 32,
-    errorText: ""
-}
-
-handleNumberChange = (event) => {
-    const minValue = 0; // new
-    const maxValue = 32; // new
-    let inputValue = event.target.value;
-    inputValue = Math.max(Number(minValue), Math.min(Number(maxValue), Number(inputValue))); // new
-    this.setState({ number: inputValue }); 
-    if (inputValue < 1 || inputValue > 32) {
-        this.setState({ errorText: 'Select number from 1 to 32' });
-        this.props.updateEvents(null, []);
-    } else {
-        this.setState({ errorText: '' });
-        this.props.updateEvents(null, inputValue);
+    constructor() {
+        super();
+        this.state = {
+          query: 32,
+          errorText: "",
+        };
     }
-};
 
-render() {
-    return (
-        <div className="NumberOfEvents">
-            <h3>number of events:</h3>
-            <input
-                id="number-of-events"
-                type="number"
-                className="number"
-                value={this.state.number} 
-                onChange={this.handleNumberChange}  
-                min="0"
-            />
-            
-        </div>
-    );
-}
+    handleNumberChange = (event) => {
+        const value = event.target.value;
+        if (value >= 1 || value <= 32) {
+            this.setState({
+            query: value,
+            errorText: "",
+            });
+            this.props.updateEvents(this.props.selectedCity, value);
+        }
+        if (value < 1 || value > 32) {
+            this.setState({
+            query: value,
+            errorText: "Please enter a valid number",
+            });
+        }
+    };
+
+    render() {
+        return (
+            <div className="NumberOfEvents">
+                <h3>number of events:</h3>
+                <input
+                    type="number"
+                    className="numberOfEvents"
+                    value={this.state.query} 
+                    onChange={this.handleNumberChange}  
+                    min={1}
+                    max={32}
+                />
+                
+            </div>
+        );
+    }
 }
 
 export default NumberOfEvents;
