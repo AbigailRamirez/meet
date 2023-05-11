@@ -12,7 +12,9 @@ class Event extends Component {
           hide: !prevState.hide,
         }));
       };
-    
+
+
+      
     render() {
         const { event } = this.props;
         return (
