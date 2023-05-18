@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { ErrorAlert } from "./Alert";
 
 class NumberOfEvents extends Component {
     constructor() {
@@ -38,7 +39,7 @@ class NumberOfEvents extends Component {
                     min={1}
                     max={32}
                 />
-                
+                <ErrorAlert className='errorMessage' text={this.state.errorText} />
             </div>
         );
     }
