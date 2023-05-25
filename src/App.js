@@ -67,6 +67,17 @@ class App extends Component {
         });
       });
     }
+
+    if (!navigator.onLine) {
+      this.setState({
+        warningText: 'You seem to be offline; events were pulled from cache.'
+      });
+    }
+    else {
+      this.setState({
+        warningText: ''
+      });
+    }
   };
 
   componentDidMount() {
@@ -76,32 +87,38 @@ class App extends Component {
         this.setState({ events, locations: extractLocations(events) });
       }
     });
+
+    if (!navigator.onLine) {
+      this.setState({
+        warningText: 'You seem to be offline; events were pulled from cache.'
+      });
+    }
   }
 
   componentWillUnmount(){
     this.mounted = false;
   }
 
-  promptOfflineWarning = () => {
+  /*promptOfflineWarning = () => {
     if (!navigator.onLine) {
       this.setState({
         warningText: 'You are offline, so events may not be up to date'
       })
     }
-  }
+  }*/
 
 
 
   render() {
     return (
       <div className="App">
-        
+        <WarningAlert text={this.state.warningText} />
+        <br></br>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}  />
         <br></br>
         <br></br>
         <NumberOfEvents numberOfEvent={this.state.NumberOfEvents} updateEvents={this.updateEvents}/>
         <br></br>
-        <WarningAlert text={this.state.offlineText} />
         <EventList events={this.state.events} />
       </div>
     );
