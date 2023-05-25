@@ -81,7 +81,7 @@ export const extractLocations = (events) => {
     return locations;
 };
 
-export const getEvents = async () => {
+export const getEvents = async (events) => {
   NProgress.start();
 
   if (window.location.href.startsWith("http://localhost")) {
@@ -89,6 +89,11 @@ export const getEvents = async () => {
     return mockData;
   }
 
+  if (!navigator.onLine) {
+    const data = localStorage.getItem("lastEvents");
+    NProgress.done();
+    return data?JSON.parse(events).events:[];;
+  }
 
   const token = await getAccessToken();
 
