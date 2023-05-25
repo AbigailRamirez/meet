@@ -15,7 +15,7 @@ class App extends Component {
     locations: [],
     eventCount: 32,
     selectedCity: null,
-    errorText: "",
+    warningText: "",
   }
 
   updateEvents = (location, eventCount) => {
@@ -80,6 +80,15 @@ class App extends Component {
   componentWillUnmount(){
     this.mounted = false;
   }
+
+  promptOfflineWarning = () => {
+    if (!navigator.onLine) {
+      this.setState({
+        warningText: 'You are offline, so events may not be up to date'
+      })
+    }
+  }
+
 
 
   render() {
