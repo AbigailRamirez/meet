@@ -95,12 +95,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <WarningAlert text={this.state.offlineText} />
+        
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}  />
         <br></br>
         <br></br>
         <NumberOfEvents numberOfEvent={this.state.NumberOfEvents} updateEvents={this.updateEvents}/>
         <br></br>
+        <WarningAlert text={this.state.offlineText} />
         <EventList events={this.state.events} />
       </div>
     );
