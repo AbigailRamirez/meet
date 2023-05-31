@@ -3,7 +3,8 @@ import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
-import { getEvents, extractLocations } from './api';
+import WelcomeScreen from './WelcomeScreen';
+import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import { WarningAlert } from "./Alert";
 import './nprogress.css';
 
@@ -17,6 +18,7 @@ class App extends Component {
     eventCount: 32,
     selectedCity: null,
     warningText: "",
+    showWelcomeScreen: undefined
   }
 
   updateEvents = (location, eventCount) => {
@@ -80,13 +82,20 @@ class App extends Component {
     }
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.mounted = true;
-    getEvents().then((events) => {
-      if (this.mounted) {
-        this.setState({ events, locations: extractLocations(events) });
-      }
-    });
+    const accessToken = localStorage.getItem('access_token');
+    const isTokenValid = (await checkToken(accessToken)).error ? false : true;
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get("code");
+    this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+    if ((code || isTokenValid) && this.mounted) {
+      getEvents().then((events) => {
+        if (this.mounted) {
+          this.setState({ events, locations: extractLocations(events) });
+        }
+      });
+    }
 
     if (!navigator.onLine) {
       this.setState({
@@ -110,8 +119,12 @@ class App extends Component {
 
 
   render() {
+    if (this.state.showWelcomeScreen === undefined) return <div className="App" />
+    
     return (
       <div className="App">
+        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => { getAccessToken() }} />
         <WarningAlert text={this.state.warningText} />
         <br></br>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}  />
@@ -120,6 +133,7 @@ class App extends Component {
         <NumberOfEvents numberOfEvent={this.state.NumberOfEvents} updateEvents={this.updateEvents}/>
         <br></br>
         <EventList events={this.state.events} />
+        
       </div>
     );
   }
